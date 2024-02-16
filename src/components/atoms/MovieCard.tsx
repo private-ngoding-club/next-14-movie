@@ -1,11 +1,24 @@
 import Image from "next/image";
+import Link from "next/link";
 
-const MovieCard = ({ film }) => {
+const MovieCard = ({
+  film,
+}: {
+  film: {
+    id: string;
+    imgUrl: string;
+    title: string;
+    subtitle: string;
+    rating: number;
+  };
+}) => {
+  const { id, imgUrl, title, subtitle, rating } = film;
+
   return (
-    <div>
-      <div className="rounded-xl overflow-hidden">
+    <Link href={`/movie/${id}`}>
+      <div className="w-48 rounded-xl overflow-hidden">
         <Image
-          src="/images/image.png"
+          src={imgUrl}
           width={320}
           height={400}
           alt="Movie picture"
@@ -13,10 +26,10 @@ const MovieCard = ({ film }) => {
         />
       </div>
       <div className="text-right text-white text-lg">
-        <p>{film.title}</p>
-        <p>{film.subtitle}</p>
+        <p>{title}</p>
+        <p>{subtitle}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

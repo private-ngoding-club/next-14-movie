@@ -1,5 +1,5 @@
-const Title = ({ judul }) => {
-  return <h1>{judul}</h1>;
+const Title = ({ judul = "Placeholder", className = "" }) => {
+  return <h1 className={`font-bold ${className}`}>{judul}</h1>;
 };
 
 export default Title;
