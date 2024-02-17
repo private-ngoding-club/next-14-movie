@@ -1,5 +1,6 @@
 import MovieBanner from "@/components/organisms/MovieBanner";
 import MovieCategory from "@/components/organisms/MovieCategory";
+import MovieHighlight from "@/components/organisms/MovieHighlight";
 
 export default function Home() {
   const trendingMovieList = [
@@ -50,11 +51,41 @@ export default function Home() {
     },
   ];
 
+  const comedyMovieList = [
+    {
+      id: "12039812",
+      imgUrl: "",
+      title: "Judul Film 1",
+      subtitle: "test",
+      rating: 0,
+    },
+    {
+      id: "412312312",
+      imgUrl: "",
+      title: "Judul Film 2",
+      subtitle: "test",
+      rating: 0,
+    },
+    {
+      id: "37567456",
+      imgUrl: "",
+      title: "Judul Film 3",
+      subtitle: "test",
+      rating: 0,
+    },
+  ];
+
   return (
     <main className="bg-slate-700 min-h-screen">
-      <div className="m-4">
+      <div className="p-4">
+        <MovieHighlight />
+
         <MovieCategory data={trendingMovieList} genre="Trending" />
         <MovieCategory data={horrorMovieList} genre="Horror" />
+
+        <MovieBanner data={trendingMovieList[0]} />
+
+        <MovieCategory data={comedyMovieList} genre="Comedy" />
 
         <MovieBanner data={trendingMovieList[0]} />
       </div>
