@@ -16,16 +16,22 @@ const MovieCard = ({
 
   return (
     <Link href={`/movie/${id}`}>
-      <div className="w-48 rounded-xl overflow-hidden">
-        <Image
-          src={imgUrl}
-          width={320}
-          height={400}
-          alt="Movie picture"
-          className="bg-slate-300"
-        />
+      <div className="h-[250px] w-48 overflow-hidden rounded-xl">
+        {imgUrl !== "" ? (
+          <Image
+            src={imgUrl}
+            width={320}
+            height={600}
+            alt="Movie picture"
+            className="h-full bg-slate-300 object-cover"
+          />
+        ) : (
+          <div className="flex h-64 w-48 items-center justify-center bg-slate-300">
+            <p className="text-2xl text-white">No Image</p>
+          </div>
+        )}
       </div>
-      <div className="text-right text-white text-lg">
+      <div className="text-right text-lg text-white">
         <p>{title}</p>
         <p>{subtitle}</p>
       </div>

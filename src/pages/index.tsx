@@ -1,12 +1,29 @@
 import MovieBanner from "@/components/organisms/MovieBanner";
 import MovieCategory from "@/components/organisms/MovieCategory";
 import MovieHighlight from "@/components/organisms/MovieHighlight";
+import NavBar from "@/components/organisms/NavBar";
+import Footer from "@/components/organisms/Footer";
+import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Home() {
+  const { isPending, error, data } = useQuery({
+    queryKey: ["repoData"],
+    queryFn: () =>
+      fetch("https://api.github.com/repos/TanStack/query").then((res) =>
+        res.json()
+      ),
+  });
+
+  useEffect(() => {
+    console.log({ data });
+  }, [data]);
+
   const trendingMovieList = [
     {
       id: "1234-4213-1234",
-      imgUrl: "",
+      imgUrl:
+        "https://media.suara.com/pictures/653x366/2024/02/21/39056-ahy.jpg",
       title: "Judul Film 1",
       subtitle: "test",
       rating: 0,
@@ -75,20 +92,23 @@ export default function Home() {
     },
   ];
 
+  if (isPending) return "Loading...";
+  if (error) return "An error has occurred: " + (error.message as string);
+
   return (
-    <main className="bg-slate-700 min-h-screen">
-      <div className="p-4">
+    <>
+      <NavBar />
+      <main className="min-h-screen bg-slate-700">
         <MovieHighlight />
-
-        <MovieCategory data={trendingMovieList} genre="Trending" />
-        <MovieCategory data={horrorMovieList} genre="Horror" />
-
-        <MovieBanner data={trendingMovieList[0]} />
-
-        <MovieCategory data={comedyMovieList} genre="Comedy" />
-
-        <MovieBanner data={trendingMovieList[0]} />
-      </div>
-    </main>
+        <div className="p-4">
+          <MovieCategory data={trendingMovieList} genre="Trending" />
+          <MovieCategory data={horrorMovieList} genre="Horror" />
+          <MovieBanner data={trendingMovieList[0]} />
+          <MovieCategory data={comedyMovieList} genre="Comedy" />
+          <MovieBanner data={trendingMovieList[0]} />
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
