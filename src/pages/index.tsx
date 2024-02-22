@@ -5,6 +5,7 @@ import NavBar from "@/components/organisms/NavBar";
 import Footer from "@/components/organisms/Footer";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import Gradient from "@/components/organisms/Gradient";
 
 export default function Home() {
   const { isPending, error, data } = useQuery({
@@ -39,6 +40,41 @@ export default function Home() {
       id: "3333-4213-1234",
       imgUrl: "",
       title: "Judul Film 3",
+      subtitle: "test",
+      rating: 0,
+    },
+    {
+      id: "3333-4213-3242",
+      imgUrl: "",
+      title: "Judul Film 4",
+      subtitle: "test",
+      rating: 0,
+    },
+    {
+      id: "4123-4213-3242",
+      imgUrl: "",
+      title: "Judul Film 4",
+      subtitle: "test",
+      rating: 0,
+    },
+    {
+      id: "3242-2222-3242",
+      imgUrl: "",
+      title: "Judul Film 4",
+      subtitle: "test",
+      rating: 0,
+    },
+    {
+      id: "6333-4123-3132",
+      imgUrl: "",
+      title: "Judul Film 4",
+      subtitle: "test",
+      rating: 0,
+    },
+    {
+      id: "4124-6786-3242",
+      imgUrl: "",
+      title: "Judul Film 4",
       subtitle: "test",
       rating: 0,
     },
@@ -98,15 +134,20 @@ export default function Home() {
   return (
     <>
       <NavBar />
-      <main className="min-h-screen bg-slate-700">
+      <main className=" min-h-screen bg-slate-700">
         <MovieHighlight />
-        <div className="p-4">
-          <MovieCategory data={trendingMovieList} genre="Trending" />
-          <MovieCategory data={horrorMovieList} genre="Horror" />
-          <MovieBanner data={trendingMovieList[0]} />
-          <MovieCategory data={comedyMovieList} genre="Comedy" />
-          <MovieBanner data={trendingMovieList[0]} />
+        {/* <div className="bg-gradient-to-r from-black via-slate-700 to-black "> */}
+        <div className="relative">
+          <div className="mx-auto flex max-w-4xl flex-col p-4">
+            <MovieCategory data={trendingMovieList} genre="Trending" />
+            <MovieCategory data={horrorMovieList} genre="Horror" />
+            <MovieBanner data={trendingMovieList[0]} />
+            <MovieCategory data={comedyMovieList} genre="Comedy" />
+            <MovieBanner data={trendingMovieList[0]} />
+          </div>
+          <Gradient />
         </div>
+        {/* </div> */}
       </main>
       <Footer />
     </>

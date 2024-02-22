@@ -5,7 +5,9 @@ const MovieCategory = ({ genre, data }) => {
   return (
     <>
       <Title judul={genre} />
-      <MovieList movieList={data} />;
+      <div className="-mx-[250px] px-4">
+        <MovieList movieList={data} />;
+      </div>
     </>
   );
 };

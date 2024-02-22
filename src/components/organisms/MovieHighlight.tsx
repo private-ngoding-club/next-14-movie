@@ -5,8 +5,8 @@ import Subtitle from "../atoms/text/Subtitle";
 
 const MovieHighlight = () => {
   return (
-    <div className="flex w-full text-white text-right min-h-64 rounded-lg bg-[url('/images/movie-banner.jpg')] bg-center bg-cover bg-no-repeat ">
-      <div className="mt-auto w-full m-6 space-y-2">
+    <div className="flex min-h-[400px] w-full rounded-lg bg-[url('/images/movie-banner.jpg')] bg-cover bg-top bg-no-repeat text-right text-white ">
+      <div className="m-6 mt-auto w-full space-y-2">
         <Title judul="Highlight" />
         <Subtitle />
         <Button text="Tekan Disini" primary />
