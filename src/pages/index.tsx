@@ -1,13 +1,13 @@
 import MovieBanner from "@/components/organisms/MovieBanner";
 import MovieCategory from "@/components/organisms/MovieCategory";
 import MovieHighlight from "@/components/organisms/MovieHighlight";
-import NavBar from "@/components/organisms/NavBar";
-import Footer from "@/components/organisms/Footer";
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Gradient from "@/components/organisms/Gradient";
+import MainLayout from "@/components/templates/MainLayout";
+import { NextPageWithLayout } from "./_app";
 
-export default function Home() {
+const Home: NextPageWithLayout = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ["repoData"],
     queryFn: () =>
@@ -132,24 +132,24 @@ export default function Home() {
   if (error) return "An error has occurred: " + (error.message as string);
 
   return (
-    <>
-      <NavBar />
-      <main className=" min-h-screen bg-slate-700">
-        <MovieHighlight />
-        {/* <div className="bg-gradient-to-r from-black via-slate-700 to-black "> */}
-        <div className="relative">
-          <div className="mx-auto flex max-w-4xl flex-col p-4">
-            <MovieCategory data={trendingMovieList} genre="Trending" />
-            <MovieCategory data={horrorMovieList} genre="Horror" />
-            <MovieBanner data={trendingMovieList[0]} />
-            <MovieCategory data={comedyMovieList} genre="Comedy" />
-            <MovieBanner data={trendingMovieList[0]} />
-          </div>
-          <Gradient />
+    <main className=" min-h-screen bg-slate-700">
+      <MovieHighlight />
+      <div className="relative">
+        <div className="mx-auto flex max-w-4xl flex-col p-4">
+          <MovieCategory data={trendingMovieList} genre="Trending" />
+          <MovieCategory data={horrorMovieList} genre="Horror" />
+          <MovieBanner data={trendingMovieList[0]} />
+          <MovieCategory data={comedyMovieList} genre="Comedy" />
+          <MovieBanner data={trendingMovieList[0]} />
         </div>
-        {/* </div> */}
-      </main>
-      <Footer />
-    </>
+        <Gradient />
+      </div>
+    </main>
   );
-}
+};
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
+
+export default Home;
