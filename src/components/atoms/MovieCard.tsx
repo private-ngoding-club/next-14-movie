@@ -6,20 +6,21 @@ const MovieCard = ({
 }: {
   film: {
     id: string;
-    imgUrl: string;
+    poster_path: string;
     title: string;
-    subtitle: string;
-    rating: number;
+    overview: string;
+    vote_average: number;
   };
 }) => {
-  const { id, imgUrl, title, subtitle, rating } = film;
+  const { id, poster_path, title, overview, vote_average } = film;
 
   return (
     <Link href={`/movie/${id}`}>
       <div className="h-[250px] w-48 overflow-hidden rounded-xl">
-        {imgUrl !== "" ? (
+        {poster_path !== "" ? (
           <Image
-            src={imgUrl}
+            // https://image.tmdb.org/t/p/original/poster_path
+            src={`https://image.tmdb.org/t/p/original/${poster_path}`}
             width={320}
             height={600}
             alt="Movie picture"
@@ -33,7 +34,7 @@ const MovieCard = ({
       </div>
       <div className="text-right text-lg text-white">
         <p>{title}</p>
-        <p>{subtitle}</p>
+        <p>{overview}</p>
       </div>
     </Link>
   );

@@ -9,7 +9,7 @@ const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`rounded-full px-10 py-4 text-white ${primaryClassName} ${customStyles} `}
+      className={`cursor-pointer rounded-full px-10 py-4 text-white ${primaryClassName} ${customStyles} `}
     >
       {text}
     </button>

@@ -1,24 +1,58 @@
 import MovieBanner from "@/components/organisms/MovieBanner";
 import MovieCategory from "@/components/organisms/MovieCategory";
 import MovieHighlight from "@/components/organisms/MovieHighlight";
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Gradient from "@/components/organisms/Gradient";
 import MainLayout from "@/components/templates/MainLayout";
 import { NextPageWithLayout } from "./_app";
 
 const Home: NextPageWithLayout = () => {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["repoData"],
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+    },
+  };
+
+  const {
+    isPending,
+    error,
+    data: trendingData,
+  } = useQuery({
+    queryKey: ["popular"],
     queryFn: () =>
-      fetch("https://api.github.com/repos/TanStack/query").then((res) =>
-        res.json()
-      ),
+      fetch(
+        "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+        options
+      ).then((res) => res.json()),
   });
 
+  const [trendingMovie, setTrendingMovie] = useState<[]>([]);
+
   useEffect(() => {
-    console.log({ data });
-  }, [data]);
+    if (trendingData) {
+      setTrendingMovie(trendingData.results);
+    }
+  }, [trendingData]);
+
+  const { data: horrorData } = useQuery({
+    queryKey: ["horror"],
+    queryFn: () =>
+      fetch(
+        "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=27",
+        options
+      ).then((res) => res.json()),
+  });
+
+  const [horrorMovie, setHorrorMovie] = useState<[]>([]);
+
+  useEffect(() => {
+    if (horrorData) {
+      setHorrorMovie(horrorData.results);
+    }
+  }, [horrorData]);
 
   const trendingMovieList = [
     {
@@ -79,31 +113,6 @@ const Home: NextPageWithLayout = () => {
       rating: 0,
     },
   ];
-
-  const horrorMovieList = [
-    {
-      id: "109123",
-      imgUrl: "",
-      title: "Horror Film 1",
-      subtitle: "test",
-      rating: 0,
-    },
-    {
-      id: "123",
-      imgUrl: "",
-      title: "Horror Film 2",
-      subtitle: "test",
-      rating: 0,
-    },
-    {
-      id: "31232",
-      imgUrl: "",
-      title: "Horror Film 3",
-      subtitle: "test",
-      rating: 0,
-    },
-  ];
-
   const comedyMovieList = [
     {
       id: "12039812",
@@ -136,8 +145,8 @@ const Home: NextPageWithLayout = () => {
       <MovieHighlight />
       <div className="relative">
         <div className="mx-auto flex max-w-4xl flex-col p-4">
-          <MovieCategory data={trendingMovieList} genre="Trending" />
-          <MovieCategory data={horrorMovieList} genre="Horror" />
+          <MovieCategory data={trendingMovie} genre="Trending" />
+          <MovieCategory data={horrorMovie} genre="Horror" />
           <MovieBanner data={trendingMovieList[0]} />
           <MovieCategory data={comedyMovieList} genre="Comedy" />
           <MovieBanner data={trendingMovieList[0]} />
