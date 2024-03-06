@@ -19,7 +19,6 @@ const MovieCard = ({
       <div className="h-[250px] w-48 overflow-hidden rounded-xl">
         {poster_path !== "" ? (
           <Image
-            // https://image.tmdb.org/t/p/original/poster_path
             src={`https://image.tmdb.org/t/p/original/${poster_path}`}
             width={320}
             height={600}

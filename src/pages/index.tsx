@@ -54,6 +54,27 @@ const Home: NextPageWithLayout = () => {
     }
   }, [horrorData]);
 
+  const { data: comedyData } = useQuery({
+    queryKey: ["comedy"],
+    queryFn: () =>
+      fetch(
+        "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=35",
+        options
+      ).then((res) => res.json()),
+  });
+
+  const [comedyMovie, setComedyMovie] = useState<[]>([]);
+
+  useEffect(() => {
+    if (comedyData) {
+      setComedyMovie(comedyData.results);
+    }
+  }, [comedyData]);
+
+  useEffect(() => {
+    console.log(comedyData.results);
+  }, [comedyData.results]);
+
   const trendingMovieList = [
     {
       id: "1234-4213-1234",
@@ -141,15 +162,15 @@ const Home: NextPageWithLayout = () => {
   if (error) return "An error has occurred: " + (error.message as string);
 
   return (
-    <main className=" min-h-screen bg-slate-700">
+    <main className="min-h-screen overflow-auto bg-slate-700">
       <MovieHighlight />
       <div className="relative">
         <div className="mx-auto flex max-w-4xl flex-col p-4">
           <MovieCategory data={trendingMovie} genre="Trending" />
           <MovieCategory data={horrorMovie} genre="Horror" />
-          <MovieBanner data={trendingMovieList[0]} />
-          <MovieCategory data={comedyMovieList} genre="Comedy" />
-          <MovieBanner data={trendingMovieList[0]} />
+          <MovieBanner data={trendingMovie} />
+          <MovieCategory data={comedyMovie} genre="Comedy" />
+          <MovieBanner data={horrorMovie} />
         </div>
         <Gradient />
       </div>
