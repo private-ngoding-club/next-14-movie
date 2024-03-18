@@ -1,5 +1,5 @@
-const Subtitle = () => {
-  return <p>Subtitle</p>;
+const Subtitle = ({ text }) => {
+  return <p>{text}</p>;
 };
 
 export default Subtitle;

@@ -4,6 +4,8 @@ import Button from "@/components/atoms/Button";
 import DetailContainer from "@/components/organisms/DetailContainer";
 import MainLayout from "@/components/templates/MainLayout";
 import VisitContext from "@/context/visitNumber";
+import MovieHighlight from "@/components/organisms/MovieHighlight";
+import Gradient from "@/components/organisms/Gradient";
 
 const MovieDetail = () => {
   const router = useRouter();
@@ -15,11 +17,14 @@ const MovieDetail = () => {
   };
 
   return (
-    <div className="p-24">
-      <Button text="Increase Number" onClick={handleOnClick} />
-      <DetailContainer />
-      <h2>{router.query.movie}</h2>
-    </div>
+    <main className="min-h-screen overflow-hidden bg-slate-700">
+      <MovieHighlight data="" />
+      <div className="relative mx-auto flex w-full flex-col text-center">
+        <Button text="Increase Number" onClick={handleOnClick} />
+        <DetailContainer />
+        <Gradient />
+      </div>
+    </main>
   );
 };
 

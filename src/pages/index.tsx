@@ -76,7 +76,9 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <main className="min-h-screen overflow-hidden bg-slate-700">
-      <MovieHighlight />
+      {trendingMovie.length > 0 ? (
+        <MovieHighlight data={trendingMovie[1]} />
+      ) : null}
       <div className="relative">
         <div className="mx-auto flex max-w-4xl flex-col p-4">
           <MovieCategory data={trendingMovie} genre="Trending" />

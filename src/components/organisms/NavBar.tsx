@@ -11,7 +11,7 @@ const NavBar = () => {
   const { visitCounter } = useContext(VisitContext);
   const { auth } = useContext(Auth);
   return (
-    <nav className="absolute flex w-full justify-between p-4">
+    <nav className="absolute z-10 flex w-full justify-between p-4">
       <Link href="/">
         <BsHouse size={50} className="text-red-800" />
       </Link>
