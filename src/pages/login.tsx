@@ -5,6 +5,7 @@ import { BsDribbble, BsGoogle, BsLinkedin } from "react-icons/bs";
 import { FaFigma } from "react-icons/fa";
 import { useRouter } from "next/router";
 
+// TODO : Use firebase auth
 const LoginPage = () => {
   const router = useRouter();
   const { setAuth } = useContext(Auth);
@@ -33,7 +34,7 @@ const LoginPage = () => {
               Create account here
             </button>
           </div>
-          <p className="font-medium">© 2022 Company</p>
+          <p className="font-medium">© {new Date().getFullYear()} Company</p>
         </div>
 
         <div className="relative flex flex-1 flex-col items-center justify-center px-10">

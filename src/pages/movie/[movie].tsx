@@ -7,6 +7,9 @@ import VisitContext from "@/context/visitNumber";
 import MovieHighlight from "@/components/organisms/MovieHighlight";
 import Gradient from "@/components/organisms/Gradient";
 
+// TODO : Fetching detail page
+// TODO : Add Detail Component
+
 const MovieDetail = () => {
   const router = useRouter();
   const { setVisitCounter } = useContext(VisitContext);

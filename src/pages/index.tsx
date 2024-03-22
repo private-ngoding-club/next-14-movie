@@ -6,15 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import Gradient from "@/components/organisms/Gradient";
 import MainLayout from "@/components/templates/MainLayout";
 import { NextPageWithLayout } from "./_app";
+import { options } from "@/library/query";
 
 const Home: NextPageWithLayout = () => {
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
-    },
-  };
+  // TODO : Fetching MovieHighlight
+  // TODO : Fetching MovieBanner
+  // TODO : Add Skeleton Loader For Each Fetching Component
 
   const {
     isPending,
@@ -54,40 +51,28 @@ const Home: NextPageWithLayout = () => {
     }
   }, [horrorData]);
 
-  const { data: comedyData } = useQuery({
-    queryKey: ["comedy"],
-    queryFn: () =>
-      fetch(
-        "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=35",
-        options
-      ).then((res) => res.json()),
-  });
-
-  const [comedyMovie, setComedyMovie] = useState<any[]>([]);
-
-  useEffect(() => {
-    if (comedyData) {
-      setComedyMovie(comedyData.results);
-    }
-  }, [comedyData]);
-
-  if (isPending) return "Loading...";
-  if (error) return "An error has occurred: " + (error.message as string);
-
   return (
     <main className="min-h-screen overflow-hidden bg-slate-700">
-      {trendingMovie.length > 0 ? (
+      {isPending ? (
+        <div className="flex h-[500px] flex-col items-end justify-end gap-y-4 bg-slate-600 p-10">
+          <div className="h-8 w-52 animate-pulse rounded-md bg-slate-300"></div>
+          <div className="h-20 w-80 animate-pulse rounded-md bg-slate-300"></div>
+          <div className="h-10 w-52 animate-pulse rounded-md bg-slate-500"></div>
+        </div>
+      ) : trendingMovie.length > 0 ? (
         <MovieHighlight data={trendingMovie[1]} />
       ) : null}
+
       <div className="relative">
         <div className="mx-auto flex max-w-4xl flex-col p-4">
-          <MovieCategory data={trendingMovie} genre="Trending" />
-          <MovieCategory data={horrorMovie} genre="Horror" />
+          <MovieCategory genre="trending" />
+          <MovieCategory genre="horror" />
+
           {trendingMovie.length > 0 ? (
             <MovieBanner data={trendingMovie[0]} />
           ) : null}
 
-          <MovieCategory data={comedyMovie} genre="Comedy" />
+          <MovieCategory genre="comedy" />
           {horrorMovie.length > 0 ? (
             <MovieBanner data={horrorMovie[1]} />
           ) : null}

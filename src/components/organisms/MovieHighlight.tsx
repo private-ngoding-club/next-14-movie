@@ -10,6 +10,7 @@ const MovieHighlight = ({ data }) => {
   const handleOnClick = () => {
     router.push(`/movie/${data.id}`);
   };
+
   return (
     <div className="relative h-[500px] w-full overflow-hidden bg-red-500 ">
       <div className="h-full w-full">
@@ -20,10 +21,10 @@ const MovieHighlight = ({ data }) => {
           }
           width={400}
           height={300}
-          className="h-full w-full bg-slate-300 object-fill"
+          className="center h-full w-full bg-slate-300 object-cover"
         />
       </div>
-      <div className="absolute bottom-0 left-1 mt-auto flex w-full justify-end bg-gradient-to-b from-transparent to-black p-14 text-right text-white">
+      <div className="absolute bottom-0 left-0 mt-auto flex w-full justify-end bg-gradient-to-b from-transparent to-black p-14 text-right text-white">
         <div className="w-[500px] space-y-4">
           <Title judul={data.title} className="text-5xl" />
           <Subtitle text={data.overview} />
