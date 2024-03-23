@@ -11,7 +11,7 @@ const MovieCategory = ({ genre }) => {
       ? "movie/popular?language=en-US&page=1"
       : `discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`;
 
-  const { data, isLoading, error } = useQuery({
+  const { data: movieData } = useQuery({
     queryKey: [genre],
     queryFn: () =>
       fetch(`https://api.themoviedb.org/3/${fetchingURL}`, options).then(
@@ -19,8 +19,7 @@ const MovieCategory = ({ genre }) => {
       ),
   });
 
-  if (isLoading) return "Loading...";
-  if (error) return "An error has occurred: " + (error.message as string);
+  if (!movieData) return null;
 
   return (
     <>
@@ -29,7 +28,7 @@ const MovieCategory = ({ genre }) => {
         className="my-2 rounded-md bg-slate-900 text-center text-lg text-white"
       />
       <div className="-mx-[250px] mt-2 px-4">
-        <MovieList movieList={data.results} />;
+        <MovieList movieList={movieData.results} />;
       </div>
     </>
   );

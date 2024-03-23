@@ -21,7 +21,7 @@ const MovieDetail = () => {
 
   return (
     <main className="min-h-screen overflow-hidden bg-slate-700">
-      <MovieHighlight data="" />
+      <MovieHighlight />
       <div className="relative mx-auto flex w-full flex-col text-center">
         <Button text="Increase Number" onClick={handleOnClick} />
         <DetailContainer />
