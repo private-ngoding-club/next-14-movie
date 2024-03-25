@@ -7,22 +7,18 @@ import MainLayout from "@/components/templates/MainLayout";
 import { NextPageWithLayout } from "./_app";
 
 const Home: NextPageWithLayout = () => {
-  // TODO : Fetching MovieHighlight (Half Done)
-  // TODO : Fetching MovieBanner (Done)
-  // TODO : Add Skeleton Loader For Each Fetching Component
-
   return (
     <main className="min-h-screen overflow-hidden bg-slate-700">
       <MovieHighlight />
 
       <div className="relative">
         <div className="mx-auto flex max-w-4xl flex-col p-4">
-          <MovieCategory genre="Trending" />
-          <MovieCategory genre="Horror" />
+          <MovieCategory genre="trending" />
+          <MovieCategory genre="horror" />
 
           <MovieBanner genre="horror" />
 
-          <MovieCategory genre="Comedy" />
+          <MovieCategory genre="comedy" />
 
           <MovieBanner genre="comedy" />
         </div>
@@ -33,7 +29,7 @@ const Home: NextPageWithLayout = () => {
 };
 
 Home.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
+  return <MainLayout title="Homepage | Movie App">{page}</MainLayout>;
 };
 
 export default Home;

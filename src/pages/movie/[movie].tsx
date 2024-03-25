@@ -1,29 +1,25 @@
-import { ReactElement, useContext } from "react";
+import { ReactElement, useEffect } from "react";
 import { useRouter } from "next/router";
-import Button from "@/components/atoms/Button";
 import DetailContainer from "@/components/organisms/DetailContainer";
 import MainLayout from "@/components/templates/MainLayout";
-import VisitContext from "@/context/visitNumber";
 import MovieHighlight from "@/components/organisms/MovieHighlight";
 import Gradient from "@/components/organisms/Gradient";
 
-// TODO : Fetching detail page
-// TODO : Add Detail Component
+// TODO : Fetching detail page by Movie ID
+// TODO : Passing data to movie highlight
+// TODO : Passing data to detail component
 
 const MovieDetail = () => {
   const router = useRouter();
-  const { setVisitCounter } = useContext(VisitContext);
 
-  const handleOnClick = () => {
-    // merubah numberCounter
-    setVisitCounter((previous) => (previous += 1));
-  };
+  useEffect(() => {
+    console.log(router.query.movie);
+  }, [router]);
 
   return (
     <main className="min-h-screen overflow-hidden bg-slate-700">
-      <MovieHighlight />
+      <MovieHighlight isEnabled={false} />
       <div className="relative mx-auto flex w-full flex-col text-center">
-        <Button text="Increase Number" onClick={handleOnClick} />
         <DetailContainer />
         <Gradient />
       </div>

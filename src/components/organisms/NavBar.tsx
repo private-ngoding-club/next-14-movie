@@ -2,21 +2,19 @@ import Link from "next/link";
 import Button from "../atoms/Button";
 import { BsHouse } from "react-icons/bs";
 import { useContext } from "react";
-import VisitContext from "@/context/visitNumber";
 import Auth from "@/context/auth";
 
 const NavBar = () => {
-  const isLogin = false;
   const loginStyles = "px-6 py-2";
-  const { visitCounter } = useContext(VisitContext);
   const { auth } = useContext(Auth);
+
   return (
     <nav className="absolute z-10 flex w-full justify-between p-4">
-      <Link href="/">
-        <BsHouse size={50} className="text-red-800" />
+      <Link href="/" className="flex items-center space-x-2 text-red-500">
+        <BsHouse size={50} />
+        <span className="font-bold">Movie</span>
       </Link>
 
-      <h1 className="bg-black p-4 font-extrabold text-white">{visitCounter}</h1>
       {auth ? (
         <>
           <Link href="">

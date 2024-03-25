@@ -7,6 +7,7 @@ import { NextPage } from "next";
 import { ReactElement, ReactNode, useState } from "react";
 import VisitContext from "@/context/visitNumber";
 import Auth from "@/context/auth";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;

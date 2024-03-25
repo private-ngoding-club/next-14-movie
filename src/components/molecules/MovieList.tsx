@@ -1,4 +1,4 @@
-import MovieCard from "../atoms/MovieCard";
+import MovieCard from "./MovieCard";
 
 const MovieList = ({ movieList }) => {
   return (

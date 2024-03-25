@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import Title from "../atoms/text/Title";
 import MovieList from "../molecules/MovieList";
 import { options } from "@/library/query";
+import SkeletonMovieList from "../molecules/skeleton/SkeletonMovieList";
+import { memo } from "react";
 
 const MovieCategory = ({ genre }) => {
   const genreId = genre === "horror" ? 27 : genre === "comedy" ? 35 : "";
@@ -11,7 +13,7 @@ const MovieCategory = ({ genre }) => {
       ? "movie/popular?language=en-US&page=1"
       : `discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`;
 
-  const { data: movieData } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: [genre],
     queryFn: () =>
       fetch(`https://api.themoviedb.org/3/${fetchingURL}`, options).then(
@@ -19,19 +21,21 @@ const MovieCategory = ({ genre }) => {
       ),
   });
 
-  if (!movieData) return null;
-
   return (
     <>
       <Title
         judul={genre}
-        className="my-2 rounded-md bg-slate-900 text-center text-lg text-white"
+        className="my-2 rounded-md bg-slate-900 text-center text-lg capitalize text-white"
       />
       <div className="-mx-[250px] mt-2 px-4">
-        <MovieList movieList={movieData.results} />;
+        {isLoading ? (
+          <SkeletonMovieList />
+        ) : (
+          <MovieList movieList={data.results} />
+        )}
       </div>
     </>
   );
 };
 
-export default MovieCategory;
+export default memo(MovieCategory);
