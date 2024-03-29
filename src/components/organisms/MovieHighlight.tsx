@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { options } from "@/library/query";
 
-const MovieHighlight = ({ isEnabled = true }) => {
+const MovieHighlight = ({ isEnabled = true, dataHighlight = null }) => {
   const router = useRouter();
   const { data, isLoading } = useQuery({
     queryKey: ["popular"],
@@ -40,7 +40,7 @@ const MovieHighlight = ({ isEnabled = true }) => {
           <div className="h-20 w-80 animate-pulse rounded-md bg-slate-300"></div>
           <div className="h-10 w-52 animate-pulse rounded-md bg-slate-500"></div>
         </div>
-      ) : (
+      ) : isEnabled ? (
         <div className="relative h-[500px] w-full overflow-hidden bg-red-500 ">
           <div className="h-full w-full">
             <Image
@@ -60,6 +60,21 @@ const MovieHighlight = ({ isEnabled = true }) => {
               <Subtitle text={trendingMovie?.overview} />
               <Button text="Tekan Disini" primary onClick={handleOnClick} />
             </div>
+          </div>
+        </div>
+      ) : (
+        <div className="relative h-[500px] w-full overflow-hidden bg-red-500 ">
+          <div className="h-full w-full">
+            <Image
+              alt="Movie Highlight"
+              src={
+                `https://image.tmdb.org/t/p/original/${dataHighlight?.backdrop_path}` ||
+                ""
+              }
+              width={400}
+              height={300}
+              className="center h-full w-full bg-slate-300 object-cover"
+            />
           </div>
         </div>
       )}
