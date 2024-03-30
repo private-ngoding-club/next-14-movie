@@ -26,11 +26,21 @@ const MovieHighlight = ({ isEnabled = true, dataHighlight = null }) => {
   };
 
   useEffect(() => {
-    if (isEnabled && data && data.results.length > 0) {
-      const randomIndex = Math.floor(Math.random() * data.results.length);
-      setTrendingMovie(data.results[randomIndex]);
+    if (isEnabled) {
+      if (data && data.results.length > 0) {
+        const randomIndex = Math.floor(Math.random() * data.results.length);
+        setTrendingMovie(data.results[randomIndex]);
+      }
     }
   }, [data, isEnabled]);
+
+  useEffect(() => {
+    if (!isEnabled) {
+      if (dataHighlight) {
+        setTrendingMovie(dataHighlight);
+      }
+    }
+  }, [dataHighlight, isEnabled]);
 
   return (
     <>
@@ -40,7 +50,7 @@ const MovieHighlight = ({ isEnabled = true, dataHighlight = null }) => {
           <div className="h-20 w-80 animate-pulse rounded-md bg-slate-300"></div>
           <div className="h-10 w-52 animate-pulse rounded-md bg-slate-500"></div>
         </div>
-      ) : isEnabled ? (
+      ) : (
         <div className="relative h-[500px] w-full overflow-hidden bg-red-500 ">
           <div className="h-full w-full">
             <Image
@@ -54,28 +64,16 @@ const MovieHighlight = ({ isEnabled = true, dataHighlight = null }) => {
               className="center h-full w-full bg-slate-300 object-cover"
             />
           </div>
-          <div className="absolute bottom-0 left-0 mt-auto flex w-full justify-end bg-gradient-to-b from-transparent to-black p-14 text-right text-white">
-            <div className="w-[500px] space-y-4">
-              <Title judul={trendingMovie?.title} className="text-5xl" />
-              <Subtitle text={trendingMovie?.overview} />
-              <Button text="Tekan Disini" primary onClick={handleOnClick} />
+
+          {isEnabled ? (
+            <div className="absolute bottom-0 left-0 mt-auto flex w-full justify-end bg-gradient-to-b from-transparent to-black p-14 text-right text-white">
+              <div className="w-[500px] space-y-4">
+                <Title judul={trendingMovie?.title} className="text-5xl" />
+                <Subtitle text={trendingMovie?.overview} />
+                <Button text="Tekan Disini" primary onClick={handleOnClick} />
+              </div>
             </div>
-          </div>
-        </div>
-      ) : (
-        <div className="relative h-[500px] w-full overflow-hidden bg-red-500 ">
-          <div className="h-full w-full">
-            <Image
-              alt="Movie Highlight"
-              src={
-                `https://image.tmdb.org/t/p/original/${dataHighlight?.backdrop_path}` ||
-                ""
-              }
-              width={400}
-              height={300}
-              className="center h-full w-full bg-slate-300 object-cover"
-            />
-          </div>
+          ) : null}
         </div>
       )}
     </>

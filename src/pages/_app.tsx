@@ -20,11 +20,16 @@ type AppPropsWithLayout = AppProps & {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [visitCounter, setVisitCounter] = useState<number>(1);
   const getLayout = Component.getLayout ?? ((page) => page);
-  const [auth, setAuth] = useState<boolean>(false);
+  const [user, setUser] = useState<{
+    id: string;
+    username: string;
+    password: string;
+    favourite: string[];
+  } | null>(null);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Auth.Provider value={{ auth, setAuth }}>
+      <Auth.Provider value={{ user, setUser }}>
         <VisitContext.Provider value={{ visitCounter, setVisitCounter }}>
           {getLayout(<Component {...pageProps} />)}
         </VisitContext.Provider>

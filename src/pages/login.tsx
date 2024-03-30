@@ -1,17 +1,41 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Link from "next/link";
 import Auth from "@/context/auth";
-import { BsDribbble, BsGoogle, BsLinkedin } from "react-icons/bs";
+import { BsDribbble, BsLinkedin } from "react-icons/bs";
 import { FaFigma } from "react-icons/fa";
 import { useRouter } from "next/router";
 
 // TODO : Use firebase auth
 const LoginPage = () => {
   const router = useRouter();
-  const { setAuth } = useContext(Auth);
+  const { setUser } = useContext(Auth);
+  const [signingUser, setSigningUser] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSigningUser({
+      ...signingUser,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleOnClick = () => {
-    setAuth(true);
+    console.log({
+      id: "1",
+      username: signingUser.username,
+      password: signingUser.password,
+      favourite: [],
+    });
+
+    setUser({
+      id: "1",
+      username: signingUser.username,
+      password: signingUser.password,
+      favourite: [],
+    });
+
     router.push("/");
   };
 
@@ -63,8 +87,17 @@ const LoginPage = () => {
             </div>
             <div className="flex max-w-md flex-col space-y-5">
               <input
+                onChange={handleOnChange}
+                name="username"
                 type="text"
                 placeholder="Username"
+                className="flex rounded-lg border-2 border-black px-3 py-2 font-medium placeholder:font-normal md:px-4 md:py-3"
+              />
+              <input
+                onChange={handleOnChange}
+                name="password"
+                type="password"
+                placeholder="Password"
                 className="flex rounded-lg border-2 border-black px-3 py-2 font-medium placeholder:font-normal md:px-4 md:py-3"
               />
               <button
@@ -73,7 +106,7 @@ const LoginPage = () => {
               >
                 Confirm with email
               </button>
-              <div className="flex items-center justify-center">
+              {/* <div className="flex items-center justify-center">
                 <span className="w-full border border-black" />
                 <span className="px-4">Or</span>
                 <span className="w-full border border-black" />
@@ -83,7 +116,7 @@ const LoginPage = () => {
                   <BsGoogle size={24} />
                 </span>
                 <span>Sign in with Google</span>
-              </button>
+              </button> */}
             </div>
           </div>
 

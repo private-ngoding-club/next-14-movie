@@ -4,6 +4,9 @@ import VisitContext from "@/context/visitNumber";
 import Subtitle from "../atoms/text/Subtitle";
 import { BsFillHeartPulseFill, BsFillSuitHeartFill } from "react-icons/bs";
 
+// TODO : Layout DetailContainer
+// TODO : Mainin State Wishlist
+
 const DetailContainer = ({ judul }) => {
   const { visitCounter } = useContext(VisitContext);
 
