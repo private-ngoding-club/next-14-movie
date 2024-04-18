@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Button from "../atoms/Button";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { options } from "@/library/query";
 import { useEffect, useState } from "react";

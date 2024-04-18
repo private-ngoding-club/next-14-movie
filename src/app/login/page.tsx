@@ -1,9 +1,11 @@
+"use client";
+
 import { useContext, useState } from "react";
 import Link from "next/link";
-import Auth from "@/context/auth";
 import { BsDribbble, BsLinkedin } from "react-icons/bs";
 import { FaFigma } from "react-icons/fa";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { Auth } from "@/provider/auth";
 
 // TODO : Use firebase auth
 const LoginPage = () => {

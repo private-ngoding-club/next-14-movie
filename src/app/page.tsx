@@ -1,15 +1,15 @@
+import Gradient from "@/components/organisms/Gradient";
 import MovieBanner from "@/components/organisms/MovieBanner";
 import MovieCategory from "@/components/organisms/MovieCategory";
 import MovieHighlight from "@/components/organisms/MovieHighlight";
-import { ReactElement } from "react";
-import Gradient from "@/components/organisms/Gradient";
-import MainLayout from "@/components/templates/MainLayout";
-import { NextPageWithLayout } from "./_app";
+import React from "react";
 
-const Home: NextPageWithLayout = () => {
+const HomePage = () => {
   return (
     <main className="min-h-screen overflow-hidden bg-slate-700">
       <MovieHighlight />
+
+      {/* <GoogleButton /> */}
 
       <div className="relative">
         <div className="mx-auto flex max-w-4xl flex-col p-4">
@@ -28,8 +28,4 @@ const Home: NextPageWithLayout = () => {
   );
 };
 
-Home.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout title="Homepage | Movie App">{page}</MainLayout>;
-};
-
-export default Home;
+export default HomePage;

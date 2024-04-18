@@ -1,5 +1,8 @@
-import { useState } from "react";
-import Auth from "@/context/auth";
+"use client";
+
+import { createContext, useState } from "react";
+
+export const Auth = createContext<any>(null);
 
 export interface UserProps {
   id: string;

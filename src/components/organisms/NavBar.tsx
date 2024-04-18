@@ -1,8 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Button from "../atoms/Button";
 import { BsHouse } from "react-icons/bs";
 import { useContext } from "react";
-import Auth from "@/context/auth";
+import { Auth } from "@/provider/auth";
 
 const NavBar = () => {
   const loginStyles = "px-6 py-2";

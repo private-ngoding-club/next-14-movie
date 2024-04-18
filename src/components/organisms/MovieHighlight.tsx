@@ -1,9 +1,11 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import Title from "../atoms/text/Title";
 import Button from "../atoms/Button";
 import Subtitle from "../atoms/text/Subtitle";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { options } from "@/library/query";
 

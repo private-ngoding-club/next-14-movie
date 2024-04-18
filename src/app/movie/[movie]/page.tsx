@@ -1,7 +1,6 @@
-import { ReactElement } from "react";
-import { useRouter } from "next/router";
+"use client";
+
 import DetailContainer from "@/components/organisms/DetailContainer";
-import MainLayout from "@/components/templates/MainLayout";
 import MovieHighlight from "@/components/organisms/MovieHighlight";
 import Gradient from "@/components/organisms/Gradient";
 import { useQuery } from "@tanstack/react-query";
@@ -16,13 +15,12 @@ import {
 // TODO : Isi Data
 // TODO : Layouting
 
-const MovieDetail = () => {
-  const router = useRouter();
+const Page = ({ params }: { params: { movie: string } }) => {
   const { data } = useQuery({
-    queryKey: [router.query.movie],
+    queryKey: [params.movie],
     queryFn: () =>
       fetch(
-        `https://api.themoviedb.org/3/movie/${router.query.movie}?language=en-US`,
+        `https://api.themoviedb.org/3/movie/${params.movie}?language=en-US`,
         options
       ).then((res) => res.json()),
   });
@@ -149,8 +147,4 @@ const MovieDetail = () => {
   );
 };
 
-export default MovieDetail;
-
-MovieDetail.getLayout = function getLayout(page: ReactElement) {
-  return <MainLayout>{page}</MainLayout>;
-};
+export default Page;
