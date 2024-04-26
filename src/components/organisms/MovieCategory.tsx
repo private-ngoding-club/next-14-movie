@@ -27,7 +27,7 @@ const MovieCategory = async ({ genre }) => {
   const genreId = genre === "horror" ? 27 : genre === "comedy" ? 35 : "";
 
   const fetchingURL =
-    genre === "trending"
+    genre === "trending" || "recomended"
       ? "movie/popular?language=en-US&page=1"
       : `discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`;
 

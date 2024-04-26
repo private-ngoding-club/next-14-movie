@@ -35,7 +35,7 @@ const MovieBanner = ({ genre }) => {
   };
 
   return (
-    <div className="relative h-[400px] w-full overflow-hidden rounded-xl bg-red-500">
+    <div className="relative my-4 h-[400px] w-full overflow-hidden rounded-xl bg-red-500">
       <div className="h-full w-full">
         <Image
           alt="Movie Banner"

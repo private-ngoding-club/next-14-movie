@@ -44,25 +44,6 @@ const LoginPage = () => {
   return (
     <div className="flex min-h-screen">
       <div className="flex w-full flex-row">
-        <div className="hidden flex-col justify-between bg-[#ffe85c] lg:flex lg:max-w-sm lg:p-8 xl:max-w-lg xl:p-12">
-          <div className="flex items-center justify-start space-x-3">
-            <span className="h-8 w-8 rounded-full bg-black" />
-            <Link href="/" className="text-xl font-medium">
-              Brand
-            </Link>
-          </div>
-          <div className="space-y-5">
-            <h1 className="font-extrabold lg:text-3xl xl:text-5xl xl:leading-snug">
-              Enter your account and discover new experiences
-            </h1>
-            <p className="text-lg">You do not have an account?</p>
-            <button className="inline-block flex-none rounded-lg border-2 border-black bg-black px-4 py-3 font-medium text-white">
-              Create account here
-            </button>
-          </div>
-          <p className="font-medium">© {new Date().getFullYear()} Company</p>
-        </div>
-
         <div className="relative flex flex-1 flex-col items-center justify-center px-10">
           <div className="flex w-full items-center justify-between py-4 lg:hidden">
             <div className="flex items-center justify-start space-x-3">
@@ -83,9 +64,7 @@ const LoginPage = () => {
               <h2 className="text-3xl font-bold md:text-4xl">
                 Sign in to account
               </h2>
-              <p className="text-md md:text-xl">
-                Sign up or log in to place the order,no password require!
-              </p>
+              <p className="text-md md:text-xl"></p>
             </div>
             <div className="flex max-w-md flex-col space-y-5">
               <input
@@ -106,7 +85,7 @@ const LoginPage = () => {
                 onClick={handleOnClick}
                 className="flex flex-none items-center justify-center rounded-lg border-2 border-black bg-black px-3 py-2 font-medium text-white md:px-4 md:py-3"
               >
-                Confirm with email
+                Log In
               </button>
               {/* <div className="flex items-center justify-center">
                 <span className="w-full border border-black" />
