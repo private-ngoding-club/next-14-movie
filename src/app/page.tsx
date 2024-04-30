@@ -1,4 +1,3 @@
-"use client";
 import Gradient from "@/components/organisms/Gradient";
 import MovieBanner from "@/components/organisms/MovieBanner";
 import MovieCategory from "@/components/organisms/MovieCategory";

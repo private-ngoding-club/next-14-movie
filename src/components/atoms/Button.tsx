@@ -1,3 +1,5 @@
+// TODO : add clear option
+
 const Button = ({
   text,
   primary = false,
@@ -9,7 +11,7 @@ const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`cursor-pointer rounded-full px-10 py-4 text-white ${primaryClassName} ${customStyles} `}
+      className={`cursor-pointer rounded-full px-8 py-2 text-white ${primaryClassName} ${customStyles} `}
     >
       {text}
     </button>

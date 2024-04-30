@@ -1,7 +1,6 @@
 import { Metadata } from "next";
-import AuthProvider from "@/provider/auth";
-import TanstackProvider from "@/provider/tanstack";
 import "@/styles/globals.css";
+import Providers from "@/components/organisms/Providers";
 
 export const metadata: Metadata = {
   title: "Movie App",
@@ -18,9 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <TanstackProvider>
-          <AuthProvider>{children}</AuthProvider>
-        </TanstackProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

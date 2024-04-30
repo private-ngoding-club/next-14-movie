@@ -1,13 +1,8 @@
 "use client";
-import {
-  BsFillSuitHeartFill,
-  BsCalendar,
-  BsHeartFill,
-  BsStarFill,
-  BsStarHalf,
-} from "react-icons/bs";
+
+import { BsCalendar, BsHeartFill, BsStarFill } from "react-icons/bs";
 import Image from "next/image";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 // TODO : Mainin State Wishlist
 
@@ -16,10 +11,6 @@ const DetailContainer = ({ movie }) => {
     () => Math.round(movie?.vote_average),
     [movie?.vote_average]
   );
-
-  useEffect(() => {
-    console.log(movie);
-  }, [movie]);
 
   return (
     <>

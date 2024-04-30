@@ -24,7 +24,8 @@ const NavBar = () => {
         <>
           <h1 className="text-white">Welcome {user.username}</h1>
           <div className="space-x-3">
-            <Link href="">
+            <Link href="/wishlist">Wishlist</Link>
+            <Link href="/profile">
               <Button text="Profile" customStyles={loginStyles} />
             </Link>
             <Button
