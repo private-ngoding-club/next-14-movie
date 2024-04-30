@@ -1,6 +1,7 @@
 import Footer from "@/components/organisms/Footer";
 import NavBar from "@/components/organisms/NavBar";
 import React from "react";
+import { ToastContainer } from "react-toastify";
 
 const Layout = ({ children }) => {
   return (
@@ -8,6 +9,8 @@ const Layout = ({ children }) => {
       <NavBar />
       {children}
       <Footer />
+
+      <ToastContainer />
     </>
   );
 };

@@ -4,6 +4,7 @@ import { BsCalendar, BsHeart, BsHeartFill, BsStarFill } from "react-icons/bs";
 import Image from "next/image";
 import { useContext, useMemo } from "react";
 import { Auth } from "@/provider/auth";
+import { toast } from "react-toastify";
 
 // TODO : Mainin State Wishlist
 
@@ -15,21 +16,23 @@ const DetailContainer = ({ movie }) => {
   );
 
   const handleClickFavourite = () => {
-    setUser((prev) => ({
-      ...prev,
-      favourite: [...prev.favourite, movie.id],
+    setUser((previousUserValue) => ({
+      ...previousUserValue,
+      favourite: [...previousUserValue.favourite, movie?.id],
     }));
 
-    alert(`Movie id:${movie.id} added!`);
+    toast(`Movie id:${movie.id} added!`);
   };
 
   const handleClickRemoveFromFavourite = () => {
-    setUser((prev) => ({
-      ...prev,
-      favourite: prev.favourite.filter((id) => id !== movie?.id),
+    setUser((previousUserValue) => ({
+      ...previousUserValue,
+      favourite: previousUserValue.favourite.filter(
+        (item: string) => item !== movie?.id
+      ),
     }));
 
-    alert(`Movie id:${movie.id} added!`);
+    toast(`Movie id:${movie.id} removed!`);
   };
 
   const isMovieFavourite = useMemo(
@@ -41,19 +44,22 @@ const DetailContainer = ({ movie }) => {
     <>
       <div>
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4">
-          <div
-            className="bg-card text-card-foreground rounded-lg border shadow-sm"
-            data-v0-t="card"
-          >
+          <div className="bg-card text-card-foreground rounded-lg border shadow-sm">
             <div className="grid gap-4 p-4 md:gap-6 md:p-6 lg:gap-4">
               <div className="flex items-start gap-4">
-                <Image
-                  src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                  alt="Movie Cover"
-                  width={200}
-                  height={400}
-                  className="priority h-full rounded-lg border border-gray-200 bg-slate-300 object-cover dark:border-gray-800"
-                />
+                {movie?.poster_path ? (
+                  <Image
+                    src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
+                    alt="Movie Cover"
+                    width={200}
+                    height={400}
+                    priority
+                    className="priority h-full rounded-lg border border-gray-200 bg-slate-300 object-cover dark:border-gray-800"
+                  />
+                ) : (
+                  <div className="h-36 w-52 animate-pulse rounded-md bg-slate-300" />
+                )}
+
                 <div className="grid gap-2">
                   <div className="flex items-center gap-4">
                     <h1 className="text-2xl font-bold">{movie?.title}</h1>

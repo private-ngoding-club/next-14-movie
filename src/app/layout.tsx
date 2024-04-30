@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import "@/styles/globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import Providers from "@/components/organisms/Providers";
 
 export const metadata: Metadata = {

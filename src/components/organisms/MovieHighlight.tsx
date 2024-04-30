@@ -55,16 +55,18 @@ const MovieHighlight = ({ isEnabled = true, dataHighlight = null }) => {
       ) : (
         <div className="relative h-[500px] w-full overflow-hidden bg-red-500 ">
           <div className="h-full w-full">
-            <Image
-              alt="Movie Highlight"
-              src={
-                `https://image.tmdb.org/t/p/original/${trendingMovie?.backdrop_path}` ||
-                ""
-              }
-              width={400}
-              height={300}
-              className="center h-full w-full bg-slate-300 object-cover"
-            />
+            {trendingMovie?.backdrop_path ? (
+              <Image
+                alt="Movie Highlight"
+                src={`https://image.tmdb.org/t/p/original/${trendingMovie?.backdrop_path}`}
+                width={400}
+                height={300}
+                priority
+                className="center h-full w-full bg-slate-300 object-cover"
+              />
+            ) : (
+              <div className="h-36 w-52 animate-pulse rounded-md bg-slate-300" />
+            )}
           </div>
 
           {isEnabled ? (

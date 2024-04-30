@@ -5,12 +5,15 @@ import Button from "../atoms/Button";
 import { BsHouse } from "react-icons/bs";
 import { useContext } from "react";
 import { Auth } from "@/provider/auth";
+import { toast } from "react-toastify";
 
 const NavBar = () => {
   const loginStyles = "px-6 py-2";
   const { user, setUser } = useContext(Auth);
   const handleOnClick = () => {
     setUser(null);
+
+    toast(`Logged out!`);
   };
 
   return (
@@ -24,7 +27,7 @@ const NavBar = () => {
         <>
           <h1 className="text-white">Welcome {user.username}</h1>
           <div className="space-x-3">
-            <Link href="/wishlist">Wishlist</Link>
+            <Link href="/favourite">Favourite</Link>
             <Link href="/profile">
               <Button text="Profile" customStyles={loginStyles} />
             </Link>

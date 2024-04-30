@@ -42,6 +42,7 @@ const MovieBanner = ({ genre }) => {
           src={`https://image.tmdb.org/t/p/original/${genreMovie?.backdrop_path}`}
           width={400}
           height={300}
+          priority
           className="h-full w-full bg-slate-300 object-cover"
         />
       </div>
@@ -58,6 +59,7 @@ const MovieBanner = ({ genre }) => {
             src={`https://image.tmdb.org/t/p/original/${genreMovie?.poster_path}`}
             width={200}
             height={400}
+            priority
             className="h-full bg-slate-300 object-cover"
           />
         </div>
