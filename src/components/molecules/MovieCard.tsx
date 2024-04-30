@@ -1,12 +1,14 @@
+import { Auth } from "@/provider/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
-import { BsStarFill } from "react-icons/bs";
+import { useContext, useMemo } from "react";
+import { BsStarFill, BsHeart, BsHeartFill } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 const MovieCard = ({
-  film,
+  movie,
 }: {
-  film: {
+  movie: {
     id: string;
     poster_path: string;
     title: string;
@@ -14,17 +16,65 @@ const MovieCard = ({
     vote_average: number;
   };
 }) => {
-  const { id, poster_path, title, overview, vote_average } = film;
+  const { user, setUser } = useContext(Auth);
+
+  const { id, poster_path, title, vote_average } = movie;
+
+  const handleClickFavourite = () => {
+    setUser((previousUserValue) => ({
+      ...previousUserValue,
+      favourite: [...previousUserValue.favourite, movie?.id],
+    }));
+
+    toast(`Movie id:${movie.id} added!`);
+  };
+
+  const handleClickRemoveFromFavourite = () => {
+    setUser((previousUserValue) => ({
+      ...previousUserValue,
+      favourite: previousUserValue.favourite.filter(
+        (item: string) => item !== movie?.id
+      ),
+    }));
+
+    toast(`Movie id:${movie.id} removed!`);
+  };
+
+  const isMovieFavourite = useMemo(
+    () => user?.favourite.includes(movie?.id),
+    [user?.favourite, movie?.id]
+  );
 
   const roundedVote = useMemo(() => Math.round(vote_average), [vote_average]);
 
   return (
     <>
-      <div className="w-full max-w-48 snap-start">
+      <div className="relative w-full max-w-48 snap-start">
+        {user ? (
+          isMovieFavourite ? (
+            <button
+              onClick={handleClickRemoveFromFavourite}
+              className="absolute right-2 top-2"
+            >
+              <BsHeartFill className="text-red-500" size={30} />
+            </button>
+          ) : (
+            <button
+              onClick={handleClickFavourite}
+              className="absolute right-2 top-2"
+            >
+              <BsHeart className="text-red-500" size={30} />
+            </button>
+          )
+        ) : undefined}
         <Link href={`/movie/${id}`}>
           <div className="h-[250px] w-full overflow-hidden rounded-xl">
             <Image
-              src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+              src={
+                poster_path
+                  ? `https://image.tmdb.org/t/p/original/${poster_path}`
+                  : ""
+              }
               width={320}
               height={600}
               alt="Movie picture"
@@ -33,6 +83,7 @@ const MovieCard = ({
                 width: "100%",
                 height: "100%",
               }}
+              priority
             />
           </div>
         </Link>
