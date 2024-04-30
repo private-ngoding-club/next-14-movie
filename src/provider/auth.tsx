@@ -12,7 +12,7 @@ export interface UserProps {
 }
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState<UserProps>({} as UserProps);
+  const [user, setUser] = useState<UserProps | null>(null);
 
   return <Auth.Provider value={{ user, setUser }}>{children}</Auth.Provider>;
 };

@@ -1,15 +1,40 @@
 "use client";
 
-import { BsCalendar, BsHeartFill, BsStarFill } from "react-icons/bs";
+import { BsCalendar, BsHeart, BsHeartFill, BsStarFill } from "react-icons/bs";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { Auth } from "@/provider/auth";
 
 // TODO : Mainin State Wishlist
 
 const DetailContainer = ({ movie }) => {
+  const { user, setUser } = useContext(Auth);
   const roundedVote = useMemo(
     () => Math.round(movie?.vote_average),
     [movie?.vote_average]
+  );
+
+  const handleClickFavourite = () => {
+    setUser((prev) => ({
+      ...prev,
+      favourite: [...prev.favourite, movie.id],
+    }));
+
+    alert(`Movie id:${movie.id} added!`);
+  };
+
+  const handleClickRemoveFromFavourite = () => {
+    setUser((prev) => ({
+      ...prev,
+      favourite: prev.favourite.filter((id) => id !== movie?.id),
+    }));
+
+    alert(`Movie id:${movie.id} added!`);
+  };
+
+  const isMovieFavourite = useMemo(
+    () => user?.favourite.includes(movie?.id),
+    [user?.favourite, movie?.id]
   );
 
   return (
@@ -32,10 +57,25 @@ const DetailContainer = ({ movie }) => {
                 <div className="grid gap-2">
                   <div className="flex items-center gap-4">
                     <h1 className="text-2xl font-bold">{movie?.title}</h1>
-                    <button className="ring-offset-background focus-visible:ring-ring border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
-                      <BsHeartFill className="text-red-500" />
-                      Add to Wishlist
-                    </button>
+                    {user ? (
+                      isMovieFavourite ? (
+                        <button
+                          onClick={handleClickRemoveFromFavourite}
+                          className="ring-offset-background focus-visible:ring-ring border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                        >
+                          <BsHeart className="text-red-500" />
+                          Remove from Favourite
+                        </button>
+                      ) : (
+                        <button
+                          onClick={handleClickFavourite}
+                          className="ring-offset-background focus-visible:ring-ring border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                        >
+                          <BsHeartFill className="text-red-500" />
+                          Add to Favourite
+                        </button>
+                      )
+                    ) : undefined}
                   </div>
                   <div className="flex items-center gap-4">
                     <BsCalendar />
