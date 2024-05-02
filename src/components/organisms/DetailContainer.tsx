@@ -6,7 +6,7 @@ import { useContext, useMemo } from "react";
 import { Auth } from "@/provider/auth";
 import { toast } from "react-toastify";
 
-// TODO : Mainin State Wishlist
+
 
 const DetailContainer = ({ movie }) => {
   const { user, setUser } = useContext(Auth);
@@ -21,7 +21,7 @@ const DetailContainer = ({ movie }) => {
       favourite: [...previousUserValue.favourite, movie?.id],
     }));
 
-    toast(`Movie id:${movie.id} added!`);
+    toast(`Movie: ${movie.title} added!`);
   };
 
   const handleClickRemoveFromFavourite = () => {
@@ -32,7 +32,7 @@ const DetailContainer = ({ movie }) => {
       ),
     }));
 
-    toast(`Movie id:${movie.id} removed!`);
+    toast(`Movie: ${movie.title} removed!`);
   };
 
   const isMovieFavourite = useMemo(

@@ -74,7 +74,7 @@ const MovieHighlight = ({ isEnabled = true, dataHighlight = null }) => {
               <div className="w-[500px] space-y-4">
                 <Title judul={trendingMovie?.title} className="text-5xl" />
                 <Subtitle text={trendingMovie?.overview} />
-                <Button text="Tekan Disini" primary onClick={handleOnClick} />
+                <Button text="More" primary={false} onClick={handleOnClick} />
               </div>
             </div>
           ) : null}

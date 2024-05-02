@@ -18,16 +18,18 @@ const NavBar = () => {
 
   return (
     <nav className="absolute z-10 flex w-full items-center justify-between p-4">
-      <Link href="/" className="flex items-center space-x-2 text-red-500">
+      <Link href="/" className="flex items-center space-x-2 text-blue-500">
         <BsHouse size={50} />
-        <span className="font-bold">Movie</span>
+        <span className="font-bold">Movies</span>
       </Link>
 
       {user ? (
         <>
           <h1 className="text-white">Welcome {user.username}</h1>
           <div className="space-x-3">
-            <Link href="/favourite">Favourite</Link>
+            <Link href="/favourite">
+              <Button text="Favourite" customStyles={loginStyles} />
+            </Link>
             <Link href="/profile">
               <Button text="Profile" customStyles={loginStyles} />
             </Link>
@@ -40,7 +42,7 @@ const NavBar = () => {
         </>
       ) : (
         <Link href="/login">
-          <Button text="Log In" customStyles={loginStyles} />
+          <Button text="Log In" primary={false} customStyles={loginStyles} />
         </Link>
       )}
     </nav>

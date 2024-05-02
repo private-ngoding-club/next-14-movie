@@ -26,7 +26,7 @@ const MovieCard = ({
       favourite: [...previousUserValue.favourite, movie?.id],
     }));
 
-    toast(`Movie id:${movie.id} added!`);
+    toast(`Movie: ${movie.title} added!`);
   };
 
   const handleClickRemoveFromFavourite = () => {
@@ -37,7 +37,7 @@ const MovieCard = ({
       ),
     }));
 
-    toast(`Movie id:${movie.id} removed!`);
+    toast(`Movie: ${movie.title} removed!`);
   };
 
   const isMovieFavourite = useMemo(

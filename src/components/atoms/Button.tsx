@@ -1,17 +1,19 @@
-// TODO : add clear option
+
 
 const Button = ({
   text,
-  primary = false,
+  primary = true,
   customStyles = "",
   onClick = () => {},
 }) => {
-  const primaryClassName = primary ? "bg-blue-400" : "bg-red-400";
+  const primaryClassName = primary
+    ? "bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full"
+    : "bg-transparent border border-blue-500 hover:border-blue-600 text-blue-500 hover:text-white font-bold py-2 px-4 rounded-full";
 
   return (
     <button
       onClick={onClick}
-      className={`cursor-pointer rounded-full px-8 py-2 text-white ${primaryClassName} ${customStyles} `}
+      className={`${primaryClassName} ${customStyles} `}
     >
       {text}
     </button>
