@@ -3,18 +3,28 @@
 import Link from "next/link";
 import Button from "../atoms/Button";
 import { BsHouse } from "react-icons/bs";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Auth } from "@/provider/auth";
 import { toast } from "react-toastify";
+import { useUserData, User } from "@/hooks/useUserData";
 
 const NavBar = () => {
+  // const { user, createUser, fetchUser, modifyUser, removeUser } = useUserData();
+
   const loginStyles = "px-6 py-2";
   const { user, setUser } = useContext(Auth);
   const handleOnClick = () => {
+    localStorage.removeItem("loggedUser");
     setUser(null);
-
     toast(`Logged out!`);
   };
+
+  // useEffect(() => {
+  //   const loadUser = async () => {
+  //     await fetchUser("");
+  //   };
+  //   loadUser();
+  // }, []);
 
   return (
     <nav className="absolute z-10 flex w-full items-center justify-between p-4">

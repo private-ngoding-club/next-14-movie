@@ -1,48 +1,43 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import Link from "next/link";
-import { BsDribbble, BsLinkedin } from "react-icons/bs";
-import { FaFigma } from "react-icons/fa";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Auth } from "@/provider/auth";
-import { useUserData, User } from "@/hooks/useUserData";
+import Link from "next/link";
 import { toast } from "react-toastify";
+import { useUserData } from "@/hooks/useUserData";
 
-const LoginPage = () => {
-  const { setUser } = useContext(Auth);
-
+const SignupPage = () => {
   const router = useRouter();
-  const { fetchUser } = useUserData();
-  const [loggingUser, setLoggingUser] = useState({
+  const { createUser } = useUserData();
+  const [signingUser, setSigningUser] = useState({
     username: "",
     password: "",
   });
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoggingUser({
-      ...loggingUser,
+    setSigningUser({
+      ...signingUser,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleOnSubmit = async () => {
+    const userId = Date.now(); // Use current timestamp as a simple unique ID
+    const newUser = {
+      id: userId,
+      username: signingUser.username,
+      password: signingUser.password,
+      favourite: [],
+    };
+
     try {
-      console.log("Attempting to fetch user:", loggingUser.username);
-      const user = await fetchUser(loggingUser.username);
-      console.log("User fetched:", user);
-      if (user && user.password === loggingUser.password) {
-        const { password, ...restUser } = user;
-        localStorage.setItem("loggedUser", JSON.stringify(user));
-        setUser(user);
-        toast.success("Login successful!");
-        router.push("/");
-      } else {
-        toast.error("Invalid username or password. Please try again.");
-      }
+      console.log("Signing up user:", newUser);
+      await createUser(newUser);
+      toast.success("Signup successful!");
+      router.push("/login");
     } catch (error) {
-      toast.error("Login failed. Please try again.");
-      console.error("Login error:", error);
+      toast.error("Signup failed. Please try again.");
+      console.error("Signup error:", error);
     }
   };
 
@@ -50,10 +45,11 @@ const LoginPage = () => {
     <div className="flex min-h-screen">
       <div className="flex w-full flex-row">
         <div className="relative flex flex-1 flex-col items-center justify-center px-10">
-          <div className="flex max-w-md flex-1  flex-col justify-center space-y-5">
+          <div className="flex w-full items-center justify-between py-4"></div>
+          <div className="flex max-w-md flex-1 flex-col justify-center space-y-5">
             <div className="flex flex-col space-y-2 text-center">
               <h2 className="text-3xl font-bold md:text-4xl">
-                Sign in to account
+                Create an account
               </h2>
               <p className="text-md md:text-xl"></p>
             </div>
@@ -76,15 +72,15 @@ const LoginPage = () => {
                 onClick={handleOnSubmit}
                 className="flex flex-none items-center justify-center rounded-lg border-2 border-black bg-black px-3 py-2 font-medium text-white md:px-4 md:py-3"
               >
-                Log In
+                Sign Up
               </button>
               <div className="flex items-center justify-center space-x-2">
-                <span>Not a Member?</span>
+                <span>Already have an account? </span>
                 <Link
-                  href="/signup"
+                  href="/login"
                   className="font-medium text-[#070eff] underline"
                 >
-                  Signup now
+                  Login now
                 </Link>
               </div>
             </div>
@@ -95,4 +91,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

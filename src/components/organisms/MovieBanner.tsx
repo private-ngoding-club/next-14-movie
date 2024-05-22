@@ -53,7 +53,7 @@ const MovieBanner = ({ genre }) => {
           <Button text="More" primary={false} onClick={handleOnClick} />
         </div>
 
-        <div className="w-full min-w-48 overflow-hidden rounded-xl">
+        <div className="oveflow-hidden w-full min-w-48 rounded-xl">
           <Image
             alt="Movie Banner Card"
             src={`https://image.tmdb.org/t/p/original/${genreMovie?.poster_path}`}

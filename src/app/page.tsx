@@ -1,8 +1,10 @@
+"use client";
 import Gradient from "@/components/organisms/Gradient";
 import MovieBanner from "@/components/organisms/MovieBanner";
 import MovieCategory from "@/components/organisms/MovieCategory";
 import MovieHighlight from "@/components/organisms/MovieHighlight";
-import React from "react";
+import { useUserData, User } from "@/hooks/useUserData";
+import React, { useEffect } from "react";
 
 const HomePage = () => {
   return (

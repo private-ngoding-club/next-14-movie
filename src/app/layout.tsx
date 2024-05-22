@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import Providers from "@/components/organisms/Providers";
+import { useEffect } from "react";
+import { useUserData, User } from "@/hooks/useUserData";
 
 export const metadata: Metadata = {
   title: "Movie App",

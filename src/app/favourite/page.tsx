@@ -4,17 +4,16 @@ import MovieCard from "@/components/molecules/MovieCard";
 import MovieList from "@/components/molecules/MovieList";
 import FavouriteGrid from "@/components/organisms/FavouriteGrid";
 import Gradient from "@/components/organisms/Gradient";
+import { useUserData } from "@/hooks/useUserData";
 import { options } from "@/library/query";
 import { Auth } from "@/provider/auth";
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useEffect } from "react";
-
-
+import { useContext, useEffect, useState } from "react";
 
 const WishlishPage = () => {
   const { user } = useContext(Auth);
 
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: [],
     queryFn: async () => {
       const movies = await Promise.all(
@@ -28,10 +27,14 @@ const WishlishPage = () => {
     },
   });
 
+  const handleRefresh = () => {
+    refetch();
+  };
+
   return (
     <>
       <main className="relative min-h-screen bg-slate-700">
-        <FavouriteGrid movieGrid={data} />
+        <FavouriteGrid movieGrid={data} onRefresh={handleRefresh} />
         <Gradient />
       </main>
     </>

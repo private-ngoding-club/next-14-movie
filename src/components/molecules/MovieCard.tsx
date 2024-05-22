@@ -1,9 +1,10 @@
 import { Auth } from "@/provider/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { BsStarFill, BsHeart, BsHeartFill } from "react-icons/bs";
 import { toast } from "react-toastify";
+import { useUserData, User } from "@/hooks/useUserData";
 
 const MovieCard = ({
   movie,
@@ -17,28 +18,76 @@ const MovieCard = ({
   };
 }) => {
   const { user, setUser } = useContext(Auth);
+  const { modifyUser } = useUserData();
+  const [favourites, setFavourites] = useState<string[]>([]);
 
   const { id, poster_path, title, vote_average } = movie;
 
-  const handleClickFavourite = () => {
-    setUser((previousUserValue) => ({
-      ...previousUserValue,
-      favourite: [...previousUserValue.favourite, movie?.id],
-    }));
+  useEffect(() => {
+    if (user) {
+      setFavourites(user.favourite ? user.favourite : []);
+    }
+  }, [user]);
 
-    toast(`Movie: ${movie.title} added!`);
+  const handleClickFavourite = async () => {
+    if (user) {
+      const updatedFavourites = [...favourites, movie.id];
+      setFavourites(updatedFavourites);
+
+      const updatedUser = { ...user, favourite: updatedFavourites };
+      await modifyUser(updatedUser);
+      setUser((previousUserValue) => ({
+        ...previousUserValue,
+        favourite: [...previousUserValue.favourite, movie?.id],
+      }));
+      localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
+
+      toast(`Movie: ${movie.title} added!`);
+    }
   };
 
-  const handleClickRemoveFromFavourite = () => {
-    setUser((previousUserValue) => ({
-      ...previousUserValue,
-      favourite: previousUserValue.favourite.filter(
-        (item: string) => item !== movie?.id
-      ),
-    }));
+  const handleClickRemoveFromFavourite = async () => {
+    if (user) {
+      const updatedFavourites = favourites.filter((item) => item !== movie.id);
+      setFavourites(updatedFavourites); // Optimistic UI update
 
-    toast(`Movie: ${movie.title} removed!`);
+      const updatedUser = { ...user, favourite: updatedFavourites };
+      await modifyUser(updatedUser);
+      setUser((previousUserValue) => ({
+        ...previousUserValue,
+        favourite: previousUserValue.favourite.filter(
+          (item: string) => item !== movie?.id
+        ),
+      }));
+      localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
+
+      toast(`Movie: ${movie.title} removed!`);
+    }
   };
+
+  // const { user, setUser } = useContext(Auth);
+
+  // const { id, poster_path, title, vote_average } = movie;
+
+  // const handleClickFavourite = () => {
+  //   setUser((previousUserValue) => ({
+  //     ...previousUserValue,
+  //     favourite: [...previousUserValue.favourite, movie?.id],
+  //   }));
+
+  //   toast(`Movie: ${movie.title} added!`);
+  // };
+
+  // const handleClickRemoveFromFavourite = () => {
+  //   setUser((previousUserValue) => ({
+  //     ...previousUserValue,
+  //     favourite: previousUserValue.favourite.filter(
+  //       (item: string) => item !== movie?.id
+  //     ),
+  //   }));
+
+  //   toast(`Movie: ${movie.title} removed!`);
+  // };
 
   const isMovieFavourite = useMemo(
     () => user?.favourite.includes(movie?.id),

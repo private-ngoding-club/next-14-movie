@@ -7,7 +7,6 @@ export const Auth = createContext<any>(null);
 export interface UserProps {
   id: string;
   username: string;
-  password: string;
   favourite: string[];
 }
 
